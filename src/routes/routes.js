@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import GstinList from "../components/pages/Home";
+import GstinList from "../components/pages/home/Home";
 import HOC from "../components/HOC";
 
 function MyRoutes() {
