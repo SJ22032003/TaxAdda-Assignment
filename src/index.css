@@ -22,3 +22,6 @@ body{
   font-size: 1rem;
   padding: 1rem;
 }
+#text-area:focus{
+  border: 3px solid #5245dc;
+}
