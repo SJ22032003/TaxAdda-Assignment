@@ -24,7 +24,7 @@ function TopNavbar() {
                 backgroundColor: "#5245dc",
                 textTransform: "none",
                 marginRight: "20px",
-                "&:hover": { backgroundColor: "#101825" },
+                "&:hover": { backgroundColor: "#322a93" },
               }}
             >
               Manage Subscription

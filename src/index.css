@@ -12,3 +12,13 @@ body{
 #navbar-item{
   text-decoration: none;
 }
+
+#text-area{
+  width: 100%;
+  outline: none;
+  resize: none;
+  border-radius: 7px;
+  border: 1px solid #ccc;
+  font-size: 1rem;
+  padding: 1rem;
+}

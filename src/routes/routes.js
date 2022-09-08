@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import GstinList from "../components/pages/Home";
+import Home from "../components/pages/home/Home";
 import HOC from "../components/HOC";
 
 function MyRoutes() {
@@ -8,7 +8,7 @@ function MyRoutes() {
     <>
       <HOC>
         <Routes>
-          <Route path="/gstin" element={<GstinList />} />
+          <Route path="/add_gstin" element={<Home />} />
         </Routes>
       </HOC>
     </>
