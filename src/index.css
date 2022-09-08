@@ -4,3 +4,11 @@
   font-family: sans-serif;
   box-sizing: border-box;
 }
+
+body{
+  min-height: 100vh;
+}
+
+#navbar-item{
+  text-decoration: none;
+}
