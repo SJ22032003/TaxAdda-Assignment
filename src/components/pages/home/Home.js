@@ -3,7 +3,7 @@ import { Grid } from "@mui/material";
 import GstInfo from "./GstInfo";
 import GstList from "./GstList";
 
-function GstinList() {
+function Home() {
   return (
     <Grid container>
       <Grid item lg={4.5} md={12}>
@@ -16,4 +16,4 @@ function GstinList() {
   );
 }
 
-export default GstinList;
+export default Home;

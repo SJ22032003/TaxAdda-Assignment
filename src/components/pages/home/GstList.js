@@ -1,25 +1,40 @@
 import React from "react";
 import { Grid, Typography, Box, TextareaAutosize, Button } from "@mui/material";
 import Select from "react-select";
+import AddTagsImg from "../../assets/tag.png";
+import { useSelector, useDispatch } from "react-redux";
+
+const customStyles = {
+  control: (provided,state) => ({
+    ...provided,
+    width: "100%",
+  }),
+  placeholder: (provided) => ({
+    ...provided,
+    color: "grey",
+    fontFamily: "Roboto,Helvetica,Arial,sans-serif",
+  }),
+  indicatorSeparator: (provided) => ({
+    ...provided,
+    display: "none",
+  }),
+  option: (provided, state) => ({
+    ...provided,
+    backgroundColor:state.isFocused ? "#5245dc" : "white",
+    color: state.isFocused ? "#fff" : "#000000",
+  }),
+};
 
 function GstList() {
-  const customStyles = {
-    control: (provided, state) => ({
-      ...provided,
-      width: "100%",
-    }),
-    placeholder: (provided, state) => ({
-      ...provided,
-      color: "grey",
-      fontFamily: "Roboto,Helvetica,Arial,sans-serif",
-    }),
-    indicatorSeparator: (provided, state) => ({
-      ...provided,
-      display: "none",
-    }),
-  };
+  const dispatch = useDispatch();
+  const gstin_tags = useSelector((state) => state.MainReducer.gstin_tags);
+
+  const selectOptions = gstin_tags?.map((item) => {
+    return { value: item, label: item };
+  });
+
   return (
-    <Grid container sx={{ padding: {lg:'0 70px 0 0' , md:'0 20px'} }}>
+    <Grid container sx={{ padding: { lg: "0 70px 0 0", md: "0 20px" } }}>
       <Grid
         item
         container
@@ -52,15 +67,44 @@ function GstList() {
 
         <Grid item sx={{ marginTop: "15px", width: "100%" }}>
           <Box>
-            <Typography
-              variant="body2"
-              color="textSecondary"
-              fontWeight="bold"
-              sx={{ fontSize: "15px" }}
+            <Grid
+              item
+              container
+              sx={{ display: "flex", justifyContent: "space-between" }}
             >
-              Select Tags
-            </Typography>
-            <Select styles={customStyles} placeholder="Showing All Tags" />
+              <Typography
+                variant="body2"
+                color="textSecondary"
+                fontWeight="bold"
+                sx={{ fontSize: "15px", marginTop: "10px" }}
+              >
+                Select Tags
+              </Typography>
+              <Button
+                variant="outline"
+                sx={{
+                  backgroundColor: "#101825",
+                  textTransform: "none",
+                  color: "#fff",
+                  margin: "0 20px 10px 0",
+                  padding: "2px 4px",
+                  fontWeight: "600",
+                  "&:hover": { backgroundColor: "#2d3743" },
+                }}
+              >
+                <img
+                  src={AddTagsImg}
+                  alt="tags"
+                  style={{ width: "20px", marginRight: "5px" }}
+                />{" "}
+                Add Tags
+              </Button>
+            </Grid>
+            <Select
+              styles={customStyles}
+              placeholder="Showing All Tags"
+              options={selectOptions}
+            />
           </Box>
         </Grid>
         <Grid>
@@ -84,8 +128,10 @@ function GstList() {
             </Typography>
           </Box>
         </Grid>
-        <Grid sx={{width:'100%',display:'flex',justifyContent:'flex-end'}}>
-        <Typography variant="h6" component="div">
+        <Grid
+          sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}
+        >
+          <Typography variant="h6" component="div">
             <Button
               variant="outline"
               sx={{
