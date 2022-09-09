@@ -4,6 +4,7 @@ import Select from "react-select";
 import AddTagsImg from "../../assets/tag.png";
 import { useSelector, useDispatch } from "react-redux";
 import AddTag_DelUser from "../../common/AddTag_DelUser";
+import { ADD_GSTIN_LIST } from "../../../redux/ActionType";
 
 const customStyles = {
   control: (provided, state) => ({
@@ -28,11 +29,26 @@ const customStyles = {
 
 function GstList() {
   const dispatch = useDispatch();
-  const gstin_tags = useSelector((state) => state.MainReducer.gstin_tags);
+  const gstin_tags = useSelector((state) => state.TagsReducer.tags);
 
   const selectOptions = gstin_tags?.map((item) => {
-    return { value: item, label: item };
+    return { value: item.name, label: item.name, id: item.id };
   });
+
+  const [gstinListText, setGstinListText] = React.useState("");
+  const [selectedTags, setSelectedTags] = React.useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const gstinList = gstinListText.split("\n").map((item) => item.trim());
+    dispatch({
+      type: ADD_GSTIN_LIST,
+      payload: {
+        gstin: gstinList,
+        tags: [selectedTags?.id],
+      },
+    });
+  };
 
   return (
     <Grid container sx={{ padding: { lg: "0 70px 0 0", md: "0 20px" } }}>
@@ -59,6 +75,8 @@ function GstList() {
             </Typography>
 
             <TextareaAutosize
+              value={gstinListText}
+              onChange={(e) => setGstinListText(e.target.value)}
               minRows={20}
               id="text-area"
               style={{ height: "250px" }}
@@ -84,9 +102,12 @@ function GstList() {
               <AddTag_DelUser />
             </Grid>
             <Select
+              isClearable
+              value={selectedTags?.name}
               styles={customStyles}
               placeholder="Showing All Tags"
               options={selectOptions}
+              onChange={(e) => setSelectedTags(e)}
             />
           </Box>
         </Grid>
@@ -116,6 +137,7 @@ function GstList() {
         >
           <Typography variant="h6" component="div">
             <Button
+              onClick={handleSubmit}
               variant="outline"
               sx={{
                 backgroundColor: "#5245dc",

@@ -1,5 +1,4 @@
 const initialState = {
-  gstin_tags: ["Sample", "URL's"],
   gstin_data: [],
 };
 

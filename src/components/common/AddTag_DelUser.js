@@ -16,7 +16,12 @@ import AddTagsImg from "../assets/tag.png";
 import closeImg from "../assets/close.png";
 import addTagcommon from "../assets/addtagcommon.png";
 import { useSelector, useDispatch } from "react-redux";
-import { POPUP_CLOSE, POPUP_OPEN } from "../../redux/ActionType";
+import {
+  POPUP_CLOSE,
+  POPUP_OPEN,
+  ADD_TAGS_LIST,
+  GET_TAGS_LIST,
+} from "../../redux/ActionType";
 
 function AddTag_DelUser() {
   const dispatch = useDispatch();
@@ -27,9 +32,23 @@ function AddTag_DelUser() {
     tagdescription: "",
   });
 
+  React.useEffect(() => {
+    dispatch({
+      type: GET_TAGS_LIST,
+    });
+  }, [popupState]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    dispatch({
+      type: ADD_TAGS_LIST,
+      payload: tagDetails,
+    });
     dispatch({ type: POPUP_CLOSE, payload: false });
+    setTagDetails({
+      tagname: "",
+      tagdescription: "",
+    });
   };
 
   const handleClose = () => {
