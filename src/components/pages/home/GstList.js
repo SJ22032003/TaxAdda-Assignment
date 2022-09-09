@@ -3,9 +3,10 @@ import { Grid, Typography, Box, TextareaAutosize, Button } from "@mui/material";
 import Select from "react-select";
 import AddTagsImg from "../../assets/tag.png";
 import { useSelector, useDispatch } from "react-redux";
+import AddTag_DelUser from "../../common/AddTag_DelUser";
 
 const customStyles = {
-  control: (provided,state) => ({
+  control: (provided, state) => ({
     ...provided,
     width: "100%",
   }),
@@ -20,7 +21,7 @@ const customStyles = {
   }),
   option: (provided, state) => ({
     ...provided,
-    backgroundColor:state.isFocused ? "#5245dc" : "white",
+    backgroundColor: state.isFocused ? "#5245dc" : "white",
     color: state.isFocused ? "#fff" : "#000000",
   }),
 };
@@ -80,25 +81,7 @@ function GstList() {
               >
                 Select Tags
               </Typography>
-              <Button
-                variant="outline"
-                sx={{
-                  backgroundColor: "#101825",
-                  textTransform: "none",
-                  color: "#fff",
-                  margin: "0 20px 10px 0",
-                  padding: "2px 4px",
-                  fontWeight: "600",
-                  "&:hover": { backgroundColor: "#2d3743" },
-                }}
-              >
-                <img
-                  src={AddTagsImg}
-                  alt="tags"
-                  style={{ width: "20px", marginRight: "5px" }}
-                />{" "}
-                Add Tags
-              </Button>
+              <AddTag_DelUser />
             </Grid>
             <Select
               styles={customStyles}
