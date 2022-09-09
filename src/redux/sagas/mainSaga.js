@@ -17,7 +17,7 @@ export function* handleAddGstinList(action) {
       });
     }
   } catch (error) {
-    console.log(error);
+    console.log(response , "respsonse");
   }
 }
 

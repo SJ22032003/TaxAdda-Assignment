@@ -1,4 +1,5 @@
 import axios from "axios";
+import errorMessage from "../../components/common/Notification";
 
 const url_Gstin = process.env.REACT_APP_BASE_GSTIN;
 const url_Tags = process.env.REACT_APP_BASE_TAGS;
@@ -13,8 +14,6 @@ export const addGstinList = async (action) => {
     "Content-Type": "application/json",
   };
 
-  console.log(action.payload, "inside api");
-
   let bodyContent = JSON.stringify({
     gstin: action.payload.gstin,
     tags: action.payload.tags,
@@ -28,8 +27,13 @@ export const addGstinList = async (action) => {
     data: bodyContent,
   };
 
-  let response = await axios.request(reqOptions);
-  return response.data;
+  try {
+    let response = await axios.request(reqOptions);
+    errorMessage("GSTIN Import Request", "We have taken your request and will send you an email once all GSTIN is processed", "success");
+    return response.data;
+  } catch (error) {
+    errorMessage("Error", error.message, "danger");
+  }
 };
 
 // ADD Tags List
@@ -52,9 +56,13 @@ export const addTagsList = async (action) => {
     headers: headersList,
     data: bodyContent,
   };
-
-  let response = await axios.request(reqOptions);
-  return response.data;
+  try {
+    let response = await axios.request(reqOptions);
+    errorMessage("Success", "Tag Added", "success");
+    return response.data;
+  } catch (error) {
+    errorMessage("Error", error.message, "danger");
+  }
 };
 
 // GET Tags List
@@ -69,7 +77,10 @@ export const getTagsList = async () => {
     method: "GET",
     headers: headersList,
   };
-
-  let response = await axios.request(reqOptions);
-  return response.data;
+  try {
+    let response = await axios.request(reqOptions);
+    return response.data;
+  } catch (error) {
+    errorMessage("Error", error.message, "danger");
+  }
 };
