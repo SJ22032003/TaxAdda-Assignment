@@ -5,6 +5,7 @@ import AddTagsImg from "../../assets/tag.png";
 import { useSelector, useDispatch } from "react-redux";
 import AddTag_DelUser from "../../common/AddTag_DelUser";
 import { ADD_GSTIN_LIST } from "../../../redux/ActionType";
+import errorMessage from "../../common/Notification";
 
 const customStyles = {
   control: (provided, state) => ({
@@ -41,13 +42,17 @@ function GstList() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const gstinList = gstinListText.split("\n").map((item) => item.trim());
-    dispatch({
-      type: ADD_GSTIN_LIST,
-      payload: {
-        gstin: gstinList,
-        tags: [selectedTags?.id],
-      },
-    });
+    if (gstinListText.trim() === "") {
+      errorMessage("Add GSTIN", "Please enter GSTIN list", "warning");
+    } else {
+      dispatch({
+        type: ADD_GSTIN_LIST,
+        payload: {
+          gstin: gstinList,
+          tags: selectedTags.id == null ? [] : [selectedTags.id],
+        },
+      });
+    }
   };
 
   return (
