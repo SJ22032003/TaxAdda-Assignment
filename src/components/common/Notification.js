@@ -4,7 +4,7 @@ const errorMessage = (
   title = 'error',
   message = 'error occur',
   type = 'danger',
-  duration = '2000',
+  duration = '1500',
 ) => {
   Store.addNotification({
     title,

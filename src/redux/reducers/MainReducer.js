@@ -1,7 +1,8 @@
-import { GET_GSTIN_USER_SUCCESS } from "../ActionType";
+import { ADD_GSTIN_LIST_SUCCESS, GET_GSTIN_USER_SUCCESS } from "../ActionType";
 
 const initialState = {
   gstin_data: [],
+  changeLocation: false,
 };
 
 export const MainReducer = (state = initialState, action) => {

@@ -33,6 +33,7 @@ function GstList() {
   const history = useNavigate();
   const dispatch = useDispatch();
   const gstin_tags = useSelector((state) => state.TagsReducer.tags);
+  const location = useSelector((state) => state.MainReducer.changeLocation);
 
   const selectOptions = gstin_tags?.map((item) => {
     return { value: item.name, label: item.name, id: item.id };
@@ -51,12 +52,18 @@ function GstList() {
         type: ADD_GSTIN_LIST,
         payload: {
           gstin: gstinList,
-          tags: selectedTags == null ? [] : [selectedTags.id],
+          tags: [selectedTags.id],
         },
       });
-      history('/gstin');
     }
   };
+
+  React.useEffect(() => {
+    if (location) {
+      console.log("location", location);
+      history("/gstin");
+    }
+  }, []);
 
   return (
     <Grid container sx={{ padding: { lg: "0 70px 0 0", md: "0 20px" } }}>

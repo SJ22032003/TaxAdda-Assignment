@@ -16,3 +16,6 @@ export const ADD_TAGS_LIST_SUCCESS = "ADD_TAGS_LIST_SUCCESS";
 // GET Tags List
 export const GET_TAGS_LIST = "GET_TAGS_LIST";
 export const GET_TAGS_LIST_SUCCESS = "GET_TAGS_LIST_SUCCESS";
+
+// Delete User
+export const DELETE_GSTIN_USER = "DELETE_GSTIN_USER";

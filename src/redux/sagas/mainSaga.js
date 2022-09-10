@@ -4,10 +4,12 @@ import {
   addTagsList,
   getTagsList,
   getGstinUser,
+  deleteUser,
 } from "../api/apis";
 import {
   ADD_GSTIN_LIST_SUCCESS,
   ADD_TAGS_LIST_SUCCESS,
+  GET_GSTIN_USER,
   GET_GSTIN_USER_SUCCESS,
   GET_TAGS_LIST_SUCCESS,
 } from "../ActionType";
@@ -69,5 +71,15 @@ export function* handleGetTagsList() {
     }
   } catch (error) {
     console.log(error);
+  }
+}
+
+//Delete user
+export function* handleDeleteUser(action) {
+  const response = yield call(deleteUser, action);
+  if (response.status == 200) {
+    yield put({
+      type: GET_GSTIN_USER,
+    });
   }
 }
