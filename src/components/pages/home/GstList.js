@@ -1,11 +1,11 @@
 import React from "react";
-import { Grid, Typography, Box, TextareaAutosize, Button } from "@mui/material";
+import { Grid, Typography, Box, TextareaAutosize } from "@mui/material";
 import Select from "react-select";
-import AddTagsImg from "../../assets/tag.png";
 import { useSelector, useDispatch } from "react-redux";
 import AddTag_DelUser from "../../common/AddTag_DelUser";
 import { ADD_GSTIN_LIST } from "../../../redux/ActionType";
 import errorMessage from "../../common/Notification";
+import MuiButton from "../../common/MuiButton";
 
 const customStyles = {
   control: (provided, state) => ({
@@ -141,20 +141,12 @@ function GstList() {
           sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}
         >
           <Typography variant="h6" component="div">
-            <Button
+            <MuiButton
               onClick={handleSubmit}
               variant="outline"
-              sx={{
-                backgroundColor: "#5245dc",
-                textTransform: "none",
-                color: "#fff",
-                marginRight: "20px",
-                fontWeight: "600",
-                "&:hover": { backgroundColor: "#322a93" },
-              }}
-            >
-              Save Multiple GSTIN
-            </Button>
+              btnName="Save Multiple GSTIN"
+              customStyle={{ padding: "8px 12px" }}
+            />
           </Typography>
         </Grid>
       </Grid>
