@@ -61,9 +61,13 @@ export const getGstinUser = async () => {
     method: "GET",
     headers: headersList,
   };
-
-  let response = await axios.request(reqOptions);
-  return response.data;
+  
+  try {
+    let response = await axios.request(reqOptions);
+    return response.data;
+  } catch (error) {
+    errorMessage("Error", error.message, "danger");
+  }
 };
 
 // ADD Tags List
