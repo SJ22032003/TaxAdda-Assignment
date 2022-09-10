@@ -12,12 +12,22 @@ import {
   Grid,
   Box,
 } from "@mui/material";
-import { GstinUser } from "../../data/TempData";
 import trashIcon from "../../assets/trash.png";
+import { GET_GSTIN_USER } from "../../../redux/ActionType";
+import { useDispatch, useSelector } from "react-redux";
 
-const rows = GstinUser;
+// const rows = GstinUser;
 
 function GstinTable() {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch({
+      type: GET_GSTIN_USER,
+    });
+  }, []);
+
+  const rows = useSelector((state) => state.MainReducer.gstin_data);
+
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
@@ -57,43 +67,48 @@ function GstinTable() {
                 </TableRow>
               </TableHead>
               <TableBody>
-                {rows.slice(page * rowsPerPage,page * rowsPerPage + rowsPerPage).map((data) => {
-                  return (
-                    <TableRow
-                      sx={{
-                        "& .MuiTableCell-root": {
-                          color: "#8c8e92",
-                          borderBottom: "none",
-                          padding: "20px 18px",
-                        },
-                      }}
-                    >
-                      <TableCell id="root-lgmn">{data.lgnm}</TableCell>
-                      <TableCell>{data.name}</TableCell>
-                      <TableCell>{data.gstin}</TableCell>
-                      <TableCell>{data.gstRegType}</TableCell>
-                      <TableCell>{data.rgdt}</TableCell>
-                      <TableCell>
-                        {data.cancellationDate ? data.cancellationDate : "-"}
-                      </TableCell>
-                      <TableCell align="center">
-                        <IconButton>
-                          <img
-                            src={trashIcon}
-                            alt="X"
-                            style={{ width: "22px" }}
-                          />
-                        </IconButton>
-                      </TableCell>
-                    </TableRow>
-                  );
-                })}
+                {rows
+                  ?.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  .map((data) => {
+                    return (
+                      <TableRow
+                        sx={{
+                          "& .MuiTableCell-root": {
+                            color: "#8c8e92",
+                            borderBottom: "none",
+                            padding: "20px 18px",
+                          },
+                        }}
+                      >
+                        <TableCell id="root-lgmn">{data.lgnm}</TableCell>
+                        <TableCell>{data.name}</TableCell>
+                        <TableCell>{data.gstin}</TableCell>
+                        <TableCell>{data.gstRegType}</TableCell>
+                        <TableCell>{data.rgdt}</TableCell>
+                        <TableCell>
+                          {data.cancellationDate ? data.cancellationDate : "-"}
+                        </TableCell>
+                        <TableCell align="center">
+                          <IconButton>
+                            <img
+                              src={trashIcon}
+                              alt="X"
+                              style={{ width: "22px" }}
+                            />
+                          </IconButton>
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })}
               </TableBody>
             </Table>
           </TableContainer>
         </Grid>
         <Grid item xs={12} my={2}>
-          <Box sx={{backgroundColor:"#fff" ,padding:"15px" }} component={Paper}>
+          <Box
+            sx={{ backgroundColor: "#fff", padding: "15px" }}
+            component={Paper}
+          >
             <TablePagination
               rowsPerPageOptions={[5, 10, 20]}
               component="div"

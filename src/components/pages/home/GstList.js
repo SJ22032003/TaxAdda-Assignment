@@ -6,6 +6,7 @@ import AddTag_DelUser from "../../common/AddTag_DelUser";
 import { ADD_GSTIN_LIST } from "../../../redux/ActionType";
 import errorMessage from "../../common/Notification";
 import MuiButton from "../../common/MuiButton";
+import { useNavigate } from "react-router-dom";
 
 const customStyles = {
   control: (provided, state) => ({
@@ -29,6 +30,7 @@ const customStyles = {
 };
 
 function GstList() {
+  const history = useNavigate();
   const dispatch = useDispatch();
   const gstin_tags = useSelector((state) => state.TagsReducer.tags);
 
@@ -42,23 +44,24 @@ function GstList() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const gstinList = gstinListText.split("\n").map((item) => item.trim());
-    if (gstinListText.trim() === "") {
-      errorMessage("Add GSTIN", "Please enter GSTIN list", "warning");
+    if (gstinListText.trim() === "" || !selectedTags?.id) {
+      errorMessage("Incomplete Info", "GSTIN or Tag is missing", "warning");
     } else {
       dispatch({
         type: ADD_GSTIN_LIST,
         payload: {
           gstin: gstinList,
-          tags: selectedTags.id == null ? [] : [selectedTags.id],
+          tags: selectedTags == null ? [] : [selectedTags.id],
         },
       });
+      history("/gstin");
     }
   };
 
   return (
     <Grid container sx={{ padding: { lg: "0 70px 0 0", md: "0 20px" } }}>
       <Grid
-      component={Paper}
+        component={Paper}
         item
         container
         sx={{

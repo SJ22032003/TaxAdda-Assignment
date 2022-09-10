@@ -16,7 +16,7 @@ export const addGstinList = async (action) => {
 
   let bodyContent = JSON.stringify({
     gstin: action.payload.gstin,
-    tags: action.payload.tags,
+    tags: action.payload.tags === "" ? [] : action.payload.tags,
     user: "prateek@test.com",
   });
 
@@ -29,11 +29,41 @@ export const addGstinList = async (action) => {
 
   try {
     let response = await axios.request(reqOptions);
-    errorMessage("GSTIN Import Request", "We have taken your request and will send you an email once all GSTIN is processed", "success");
+    errorMessage(
+      "GSTIN Import Request",
+      "We have taken your request and will send you an email once all GSTIN is processed",
+      "success"
+    );
     return response.data;
   } catch (error) {
     errorMessage("Error", error.message, "danger");
   }
+};
+
+// GET GSTIN User
+export const getGstinUser = async () => {
+  let headersList = {
+    Accept: "*/*",
+    "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+  };
+
+  let reqOptions = {
+    url: `${url_Gstin}/`,
+    params: {
+      skip: 0,
+      limit: 20,
+      download: true,
+      searchText: "",
+      tags: ["628df7b40fedcce4178cb227"],
+      type: "regular",
+      user: "prateek@test.com",
+    },
+    method: "GET",
+    headers: headersList,
+  };
+
+  let response = await axios.request(reqOptions);
+  return response.data;
 };
 
 // ADD Tags List
