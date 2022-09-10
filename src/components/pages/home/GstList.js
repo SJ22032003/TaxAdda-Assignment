@@ -1,5 +1,5 @@
 import React from "react";
-import { Grid, Typography, Box, TextareaAutosize } from "@mui/material";
+import { Grid, Typography, Box, TextareaAutosize, Paper } from "@mui/material";
 import Select from "react-select";
 import { useSelector, useDispatch } from "react-redux";
 import AddTag_DelUser from "../../common/AddTag_DelUser";
@@ -58,6 +58,7 @@ function GstList() {
   return (
     <Grid container sx={{ padding: { lg: "0 70px 0 0", md: "0 20px" } }}>
       <Grid
+      component={Paper}
         item
         container
         sx={{
