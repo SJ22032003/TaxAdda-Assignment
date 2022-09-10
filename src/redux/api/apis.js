@@ -16,7 +16,7 @@ export const addGstinList = async (action) => {
 
   let bodyContent = JSON.stringify({
     gstin: action.payload.gstin,
-    tags: action.payload.tags === "" ? [] : action.payload.tags,
+    tags: action.payload.tags,
     user: "prateek@test.com",
   });
 

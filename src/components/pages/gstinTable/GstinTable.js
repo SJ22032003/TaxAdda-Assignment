@@ -15,16 +15,12 @@ import {
 import trashIcon from "../../assets/trash.png";
 import { GET_GSTIN_USER } from "../../../redux/ActionType";
 import { useDispatch, useSelector } from "react-redux";
+import {FormatDate} from "../../utils/utils"
+
 
 // const rows = GstinUser;
 
 function GstinTable() {
-  const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch({
-      type: GET_GSTIN_USER,
-    });
-  }, []);
 
   const rows = useSelector((state) => state.MainReducer.gstin_data);
 
@@ -84,7 +80,7 @@ function GstinTable() {
                         <TableCell>{data.name}</TableCell>
                         <TableCell>{data.gstin}</TableCell>
                         <TableCell>{data.gstRegType}</TableCell>
-                        <TableCell>{data.rgdt}</TableCell>
+                        <TableCell>{FormatDate(data.rgdt)}</TableCell>
                         <TableCell>
                           {data.cancellationDate ? data.cancellationDate : "-"}
                         </TableCell>

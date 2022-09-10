@@ -54,7 +54,7 @@ function GstList() {
           tags: selectedTags == null ? [] : [selectedTags.id],
         },
       });
-      history("/gstin");
+      history('/gstin');
     }
   };
 

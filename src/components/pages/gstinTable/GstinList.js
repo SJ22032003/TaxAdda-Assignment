@@ -4,9 +4,19 @@ import MuiButton from "../../common/MuiButton";
 import { useNavigate } from "react-router-dom";
 import downloadIcon from "../../assets/downloadIcon.png";
 import GstinTable from "./GstinTable";
+import { useDispatch } from "react-redux";
+import { GET_GSTIN_USER } from "../../../redux/ActionType";
 
 function GstinList() {
   const history = useNavigate();
+  const dispatch = useDispatch();
+
+  React.useEffect(() => {
+    dispatch({
+      type: GET_GSTIN_USER,
+    });
+  }, []);
+
   return (
     <div style={{ padding: "0px 3rem" }}>
       <Grid container>
