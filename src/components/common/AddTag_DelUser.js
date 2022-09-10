@@ -12,6 +12,7 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
+import MuiButton from "./MuiButton";
 import AddTagsImg from "../assets/tag.png";
 import closeImg from "../assets/close.png";
 import addTagcommon from "../assets/addtagcommon.png";
@@ -60,26 +61,17 @@ function AddTag_DelUser() {
 
   return (
     <div>
-      <Button
+      <MuiButton
+        btnName="Add Tag"
         onClick={() => dispatch({ type: POPUP_OPEN, payload: true })}
-        variant="outline"
-        sx={{
-          backgroundColor: "#101825",
-          textTransform: "none",
-          color: "#fff",
+        image={AddTagsImg}
+        customStyle={{
           margin: "0 20px 10px 0",
           padding: "2px 4px",
-          fontWeight: "600",
+          backgroundColor: "#101825",
           "&:hover": { backgroundColor: "#2d3743" },
         }}
-      >
-        <img
-          src={AddTagsImg}
-          alt="tags"
-          style={{ width: "20px", marginRight: "5px" }}
-        />{" "}
-        Add Tags
-      </Button>
+      />
       <Dialog open={popupState} onClose={() => setOpen(false)}>
         <Grid container>
           <Grid item xs={1.5}>
@@ -138,35 +130,28 @@ function AddTag_DelUser() {
               </DialogContent>
               <DialogActions>
                 <Box>
-                  <Button
+                  <MuiButton
                     onClick={handleClose}
-                    variant="contained"
-                    sx={{
-                      margin: "5px 10px",
-                      textTransform: "none",
+                    variant="outlined"
+                    btnName="Cancel"
+                    customStyle={{
+                      padding: "5px 10px",
                       color: "#000",
                       backgroundColor: "#fcfcfc",
                       "&:hover": { backgroundColor: "#fff" },
                     }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
+                  />
+                  <MuiButton
                     disabled={!tagDetails.tagname}
+                    btnName="Submit"
                     type="submit"
                     autoFocus
                     onClick={handleSubmit}
                     variant="contained"
-                    sx={{
-                      margin: "5px 10px",
-                      textTransform: "none",
-                      color: "#fff",
-                      backgroundColor: "#5245dc",
-                      "&:hover": { backgroundColor: "#5245dc" },
+                    customStyle={{
+                      padding: "5px 10px",
                     }}
-                  >
-                    Submit
-                  </Button>
+                  />
                 </Box>
               </DialogActions>
             </form>

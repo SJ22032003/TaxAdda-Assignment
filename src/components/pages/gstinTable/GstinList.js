@@ -1,7 +1,11 @@
 import React from "react";
-import { Grid, Button, TextField, Typography } from "@mui/material";
+import { Grid, TextField, Typography } from "@mui/material";
+import MuiButton from "../../common/MuiButton";
+import { useNavigate } from "react-router-dom";
+import downloadIcon from "../../assets/downloadIcon.png";
 
 function GstinList() {
+  const history = useNavigate();
   return (
     <div style={{ padding: "0px 3rem" }}>
       <Grid container>
@@ -28,19 +32,10 @@ function GstinList() {
                 xs={4}
                 sx={{ display: "flex", justifyContent: "flex-start" }}
               >
-                <Button
-                  sx={{
-                    padding: "0 15px",
-                    backgroundColor: "#5245dc",
-                    textTransform: "none",
-                    color: "#fff",
-                    fontWeight: "600",
-                    borderRadius: "7px",
-                    "&:hover": { backgroundColor: "#322a93" },
-                  }}
-                >
-                  Add GSTIN
-                </Button>
+                <MuiButton
+                  onClick={() => history("/add_gstin")}
+                  btnName="Add GSTIN"
+                />
               </Grid>
               <Grid
                 item
@@ -62,19 +57,7 @@ function GstinList() {
                 xs={4}
                 sx={{ display: "flex", justifyContent: "flex-end" }}
               >
-                <Button
-                  sx={{
-                    padding: "0 15px",
-                    backgroundColor: "#5245dc",
-                    textTransform: "none",
-                    color: "#fff",
-                    fontWeight: "600",
-                    borderRadius: "7px",
-                    "&:hover": { backgroundColor: "#322a93" },
-                  }}
-                >
-                  Export as XLSX
-                </Button>
+                <MuiButton btnName="Export as XLSX" image={downloadIcon} />
               </Grid>
             </Grid>
           </Grid>
