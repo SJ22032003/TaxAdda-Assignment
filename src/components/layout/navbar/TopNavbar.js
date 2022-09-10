@@ -11,7 +11,7 @@ import MuiButton from "../../common/MuiButton";
 
 function TopNavbar() {
   return (
-    <AppBar position="static" sx={{ backgroundColor: "#ffffff" }}>
+    <AppBar position="sticky" sx={{ backgroundColor: "#ffffff" }}>
       <Toolbar
         sx={{ display: "flex", justifyContent: "flex-end" }}
         disableGutters={true}

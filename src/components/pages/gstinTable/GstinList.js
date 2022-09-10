@@ -3,6 +3,7 @@ import { Grid, TextField, Typography } from "@mui/material";
 import MuiButton from "../../common/MuiButton";
 import { useNavigate } from "react-router-dom";
 import downloadIcon from "../../assets/downloadIcon.png";
+import GstinTable from "./GstinTable";
 
 function GstinList() {
   const history = useNavigate();
@@ -63,7 +64,9 @@ function GstinList() {
           </Grid>
         </Grid>
         {/* Table */}
-        <Grid item xs={12}></Grid>
+        <Grid item xs={12} my={2}>
+          <GstinTable />
+        </Grid>
       </Grid>
     </div>
   );
