@@ -2,6 +2,7 @@ import React from "react";
 import { Grid, TextField, Typography, IconButton, Box } from "@mui/material";
 import MuiButton from "../../common/MuiButton";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 import downloadIcon from "../../assets/downloadIcon.png";
 import searchImg from "../../assets/searchimg.png";
 import GstinTable from "./GstinTable";
@@ -11,10 +12,13 @@ import {
   POPUP_CLEAN,
   SEARCH_USER,
 } from "../../../redux/ActionType";
+import { CSVLink } from "react-csv";
+import {CsvHeaders} from "../../data/StaticData";
 
 function GstinList() {
   const history = useNavigate();
   const dispatch = useDispatch();
+  const gstin_data = useSelector((state) => state.MainReducer.gstin_data);
 
   React.useEffect(() => {
     dispatch({
@@ -117,14 +121,16 @@ function GstinList() {
                 xs={3}
                 sx={{ display: "flex", justifyContent: "flex-end" }}
               >
-                <MuiButton btnName="Export as XLSX" image={downloadIcon} />
+                <CSVLink data={gstin_data} headers={CsvHeaders} filename={"User-GSTIN.csv"}>
+                  <MuiButton btnName="Export as XLSX" image={downloadIcon} customStyle={{padding:"10px 15px"}} />
+                </CSVLink>
               </Grid>
             </Grid>
           </Grid>
         </Grid>
         {/* Table */}
         <Grid item xs={12} my={2}>
-          <GstinTable />
+          <GstinTable rows={gstin_data} />
         </Grid>
       </Grid>
     </div>
