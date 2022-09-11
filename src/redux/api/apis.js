@@ -38,6 +38,7 @@ export const addGstinList = async (action) => {
       "We have taken your request and will send you an email once all GSTIN is processed",
       "success"
     );
+    action.history("/gstin");
     return response.data;
   } catch (error) {
     errorMessage("Error", "Some of your GSTIN Numbers might be invalid", "danger", 5000);
