@@ -20,6 +20,13 @@ function GstinList() {
     };
   }, []);
 
+  const [search, setSearch] = React.useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    alert("Submitted");
+  };
+
   return (
     <div style={{ padding: "0px 3rem" }}>
       <Grid container>
@@ -56,15 +63,22 @@ function GstinList() {
                 xs={4}
                 sx={{ display: "flex", justifyContent: "center" }}
               >
-                <TextField
-                  fullWidth
-                  size="small"
-                  placeholder="Search by Lagal Name, Trade Name or GSTIN"
-                  sx={{
-                    backgroundColor: "#fff",
-                    borderRadius: "7px",
-                  }}
-                />
+                <form
+                  onSubmit={(e) => handleSubmit(e)}
+                  style={{ width: "100%" }}
+                >
+                  <TextField
+                    value={search}
+                    fullWidth
+                    size="small"
+                    placeholder="Search by Lagal Name, Trade Name or GSTIN"
+                    sx={{
+                      backgroundColor: "#fff",
+                      borderRadius: "7px",
+                    }}
+                    onChange={(e) => setSearch(e.target.value)}
+                  />
+                </form>
               </Grid>
               <Grid
                 item
