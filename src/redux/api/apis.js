@@ -119,7 +119,7 @@ export const getTagsList = async () => {
   };
   try {
     let response = await axios.request(reqOptions);
-    return response.data;
+    return response?.data;
   } catch (error) {
     errorMessage("Error", error.message, "danger");
   }
