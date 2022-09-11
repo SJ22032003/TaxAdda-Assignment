@@ -19,9 +19,11 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { FormatDate } from "../../utils/utils";
 import AddTag_DelUser from "../../common/AddTag_DelUser";
+import NoPage from "../../common/NoPage";
 
 function GstinTable() {
   const rows = useSelector((state) => state.MainReducer.gstin_data);
+  let rowChange = !(rows.length)
 
   const dispatch = useDispatch();
 
@@ -109,9 +111,12 @@ function GstinTable() {
               </TableBody>
             </Table>
           </TableContainer>
+                  {rowChange && (
+                    <NoPage />
+                  )}
         </Grid>
         <Grid item xs={12} my={2}>
-          <Box
+          {!rowChange && <Box
             sx={{ backgroundColor: "#fff", padding: "15px" }}
             component={Paper}
           >
@@ -124,7 +129,7 @@ function GstinTable() {
               onPageChange={handleChangePage}
               onRowsPerPageChange={handleChangeRowsPerPage}
             />
-          </Box>
+          </Box>}
         </Grid>
       </Grid>
       <AddTag_DelUser />
