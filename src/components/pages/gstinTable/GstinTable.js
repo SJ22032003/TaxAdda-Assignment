@@ -108,10 +108,10 @@ function GstinTable() {
               </TableBody>
             </Table>
           </TableContainer>
-          {!rows.length && <NoPage />}
+          {!(rows?.length) && <NoPage />}
         </Grid>
         <Grid item xs={12} my={2}>
-          {!!rows.length && (
+          {!!(rows.length) && (
             <Box
               sx={{ backgroundColor: "#fff", padding: "15px" }}
               component={Paper}
@@ -119,7 +119,7 @@ function GstinTable() {
               <TablePagination
                 rowsPerPageOptions={[5, 10, 20]}
                 component="div"
-                count={rows.length}
+                count={rows?.length}
                 rowsPerPage={rowsPerPage}
                 page={page}
                 onPageChange={handleChangePage}
