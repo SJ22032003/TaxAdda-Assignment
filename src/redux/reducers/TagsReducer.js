@@ -10,7 +10,7 @@ export const TagsReducer = (state = initialState, action) => {
     case GET_TAGS_LIST_SUCCESS:
       newState = {
         ...state,
-        tags: action.payload.map((item) => {
+        tags: action?.payload?.map((item) => {
           return { name: item.name, id: item._id };
         }),
       };
