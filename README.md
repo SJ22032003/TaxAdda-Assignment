@@ -15,6 +15,7 @@
           </ul>
         </p>
       </section>
+      <section>Not fully responsive as it's a crm side but it get the job done mobile also</section>
       <section>
         This GSTIN is not working <strong>04AAACY2068D1</strong>
       </section>
