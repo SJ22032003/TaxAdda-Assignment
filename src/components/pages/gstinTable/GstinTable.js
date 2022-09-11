@@ -111,7 +111,7 @@ function GstinTable() {
           {!(rows?.length) && <NoPage />}
         </Grid>
         <Grid item xs={12} my={2}>
-          {!!(rows.length) && (
+          {!!(rows?.length) && (
             <Box
               sx={{ backgroundColor: "#fff", padding: "15px" }}
               component={Paper}
