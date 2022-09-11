@@ -13,12 +13,11 @@ import {
   Box,
 } from "@mui/material";
 import trashIcon from "../../assets/trash.png";
-import {
-  POPUP_DELETE_GSTIN,
-} from "../../../redux/ActionType";
+import { POPUP_DELETE_GSTIN } from "../../../redux/ActionType";
 import { useDispatch, useSelector } from "react-redux";
 import { FormatDate } from "../../utils/utils";
 import AddTag_DelUser from "../../common/AddTag_DelUser";
+import NoPage from "../../common/NoPage";
 
 function GstinTable() {
   const rows = useSelector((state) => state.MainReducer.gstin_data);
@@ -109,22 +108,25 @@ function GstinTable() {
               </TableBody>
             </Table>
           </TableContainer>
+          {!rows.length && <NoPage />}
         </Grid>
         <Grid item xs={12} my={2}>
-          <Box
-            sx={{ backgroundColor: "#fff", padding: "15px" }}
-            component={Paper}
-          >
-            <TablePagination
-              rowsPerPageOptions={[5, 10, 20]}
-              component="div"
-              count={rows.length}
-              rowsPerPage={rowsPerPage}
-              page={page}
-              onPageChange={handleChangePage}
-              onRowsPerPageChange={handleChangeRowsPerPage}
-            />
-          </Box>
+          {!!rows.length && (
+            <Box
+              sx={{ backgroundColor: "#fff", padding: "15px" }}
+              component={Paper}
+            >
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 20]}
+                component="div"
+                count={rows.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+              />
+            </Box>
+          )}
         </Grid>
       </Grid>
       <AddTag_DelUser />
@@ -132,4 +134,4 @@ function GstinTable() {
   );
 }
 
-export default React.memo(GstinTable);
+export default GstinTable;
