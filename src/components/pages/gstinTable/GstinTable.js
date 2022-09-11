@@ -19,8 +19,8 @@ import { FormatDate } from "../../utils/utils";
 import AddTag_DelUser from "../../common/AddTag_DelUser";
 import NoPage from "../../common/NoPage";
 
-function GstinTable() {
-  const rows = useSelector((state) => state.MainReducer.gstin_data);
+function GstinTable({ rows }) {
+  // const rows = useSelector((state) => state.MainReducer.gstin_data);
 
   const dispatch = useDispatch();
 
@@ -108,10 +108,10 @@ function GstinTable() {
               </TableBody>
             </Table>
           </TableContainer>
-          {!(rows?.length) && <NoPage />}
+          {!rows?.length && <NoPage />}
         </Grid>
         <Grid item xs={12} my={2}>
-          {!!(rows?.length) && (
+          {!!rows?.length && (
             <Box
               sx={{ backgroundColor: "#fff", padding: "15px" }}
               component={Paper}
