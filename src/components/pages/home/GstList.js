@@ -57,6 +57,7 @@ function GstList() {
           tags: [selectedTags.id],
         },
       });
+      history("/gstin")
     }
   };
 

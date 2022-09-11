@@ -1,11 +1,16 @@
 import React from "react";
-import { Grid, TextField, Typography } from "@mui/material";
+import { Grid, TextField, Typography, IconButton, Box } from "@mui/material";
 import MuiButton from "../../common/MuiButton";
 import { useNavigate } from "react-router-dom";
 import downloadIcon from "../../assets/downloadIcon.png";
+import searchImg from "../../assets/searchimg.png";
 import GstinTable from "./GstinTable";
 import { useDispatch } from "react-redux";
-import { GET_GSTIN_USER, POPUP_CLEAN } from "../../../redux/ActionType";
+import {
+  GET_GSTIN_USER,
+  POPUP_CLEAN,
+  SEARCH_USER,
+} from "../../../redux/ActionType";
 
 function GstinList() {
   const history = useNavigate();
@@ -19,6 +24,24 @@ function GstinList() {
       dispatch({ type: POPUP_CLEAN });
     };
   }, []);
+
+  const [search, setSearch] = React.useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: SEARCH_USER,
+      payload: search,
+    });
+  };
+
+  const handleClear = () => {
+    dispatch({
+      type: SEARCH_USER,
+      payload: "",
+    });
+    setSearch("");
+  };
 
   return (
     <div style={{ padding: "0px 3rem" }}>
@@ -43,7 +66,7 @@ function GstinList() {
             <Grid item container>
               <Grid
                 item
-                xs={4}
+                xs={3}
                 sx={{ display: "flex", justifyContent: "flex-start" }}
               >
                 <MuiButton
@@ -53,22 +76,45 @@ function GstinList() {
               </Grid>
               <Grid
                 item
-                xs={4}
+                xs={6}
                 sx={{ display: "flex", justifyContent: "center" }}
               >
-                <TextField
-                  fullWidth
-                  size="small"
-                  placeholder="Search by Lagal Name, Trade Name or GSTIN"
+                <Box
                   sx={{
-                    backgroundColor: "#fff",
-                    borderRadius: "7px",
+                    width: "100%",
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignContent: "center",
                   }}
-                />
+                >
+                  <form
+                    onSubmit={(e) => handleSubmit(e)}
+                    style={{ width: "100%" }}
+                  >
+                    <TextField
+                      value={search}
+                      fullWidth
+                      size="small"
+                      placeholder="Search by Lagal Name, Trade Name or GSTIN"
+                      sx={{
+                        backgroundColor: "#fff",
+                        borderRadius: "7px",
+                      }}
+                      onChange={(e) => setSearch(e.target.value)}
+                    />
+                  </form>
+                  <IconButton onClick={handleClear}>
+                    <img
+                      src={searchImg}
+                      alt="clear"
+                      style={{ width: "25px" }}
+                    />
+                  </IconButton>
+                </Box>
               </Grid>
               <Grid
                 item
-                xs={4}
+                xs={3}
                 sx={{ display: "flex", justifyContent: "flex-end" }}
               >
                 <MuiButton btnName="Export as XLSX" image={downloadIcon} />

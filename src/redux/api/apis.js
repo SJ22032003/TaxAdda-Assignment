@@ -45,11 +45,13 @@ export const addGstinList = async (action) => {
 };
 
 // GET GSTIN User
-export const getGstinUser = async () => {
+export const getGstinUser = async (action) => {
   let headersList = {
     Accept: "*/*",
     "User-Agent": "Thunder Client (https://www.thunderclient.com)",
   };
+
+  let searchBy = action?.payload ? action.payload : "";
 
   let reqOptions = {
     url: `${url_Gstin}/`,
@@ -57,7 +59,7 @@ export const getGstinUser = async () => {
       skip: 0,
       limit: 20,
       download: true,
-      searchText: "",
+      searchText: searchBy,
       tags: ["628df7b40fedcce4178cb227"],
       type: "regular",
       user: "prateek@test.com",

@@ -21,3 +21,6 @@ export const GET_TAGS_LIST_SUCCESS = "GET_TAGS_LIST_SUCCESS";
 
 // Delete User
 export const DELETE_GSTIN_USER = "DELETE_GSTIN_USER";
+
+// Search User
+export const SEARCH_USER = "SEARCH_USER"

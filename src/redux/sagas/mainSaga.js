@@ -83,3 +83,14 @@ export function* handleDeleteUser(action) {
     });
   }
 }
+
+//Search User
+export function* handleSearchUser(action) {
+  const response = yield call(getGstinUser, action);
+  if (response) {
+    yield put({
+      type: GET_GSTIN_USER_SUCCESS,
+      payload: response.gstin,
+    });
+  }
+}
