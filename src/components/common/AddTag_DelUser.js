@@ -12,20 +12,23 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import AddTagsImg from "../assets/tag.png";
+import MuiButton from "./MuiButton";
 import closeImg from "../assets/close.png";
 import addTagcommon from "../assets/addtagcommon.png";
+import warningIcon from "../assets/warning.png";
 import { useSelector, useDispatch } from "react-redux";
 import {
   POPUP_CLOSE,
-  POPUP_OPEN,
   ADD_TAGS_LIST,
   GET_TAGS_LIST,
+  DELETE_GSTIN_USER,
 } from "../../redux/ActionType";
 
 function AddTag_DelUser() {
   const dispatch = useDispatch();
   const popupState = useSelector((state) => state.PopupReducer.popup);
+  const deleteUserBtn = useSelector((state) => state.PopupReducer.deleteGstin);
+  const gstNumber = useSelector((state) => state.PopupReducer.gstinNumber);
 
   const [tagDetails, setTagDetails] = React.useState({
     tagname: "",
@@ -40,11 +43,19 @@ function AddTag_DelUser() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch({
-      type: ADD_TAGS_LIST,
-      payload: tagDetails,
-    });
-    dispatch({ type: POPUP_CLOSE, payload: false });
+    if (deleteUserBtn && gstNumber) {
+      dispatch({
+        type: DELETE_GSTIN_USER,
+        payload: gstNumber,
+      });
+    } else {
+      dispatch({
+        type: ADD_TAGS_LIST,
+        payload: tagDetails,
+      });
+    }
+
+    dispatch({ type: POPUP_CLOSE, open: false });
     setTagDetails({
       tagname: "",
       tagdescription: "",
@@ -54,37 +65,17 @@ function AddTag_DelUser() {
   const handleClose = () => {
     dispatch({
       type: POPUP_CLOSE,
-      payload: false,
+      open: false,
     });
   };
 
   return (
     <div>
-      <Button
-        onClick={() => dispatch({ type: POPUP_OPEN, payload: true })}
-        variant="outline"
-        sx={{
-          backgroundColor: "#101825",
-          textTransform: "none",
-          color: "#fff",
-          margin: "0 20px 10px 0",
-          padding: "2px 4px",
-          fontWeight: "600",
-          "&:hover": { backgroundColor: "#2d3743" },
-        }}
-      >
-        <img
-          src={AddTagsImg}
-          alt="tags"
-          style={{ width: "20px", marginRight: "5px" }}
-        />{" "}
-        Add Tags
-      </Button>
       <Dialog open={popupState} onClose={() => setOpen(false)}>
         <Grid container>
           <Grid item xs={1.5}>
             <Box sx={{ margin: "18px 0 0 18px" }}>
-              <img src={addTagcommon} alt="add tag" />
+              <img src={deleteUserBtn ? warningIcon : addTagcommon} alt="" />
             </Box>
           </Grid>
           <Grid item xs={10.5}>
@@ -92,7 +83,7 @@ function AddTag_DelUser() {
               <DialogTitle>
                 <Box sx={{ display: "flex", justifyContent: "space-between" }}>
                   <Typography variant="h6" fontWeight="bold">
-                    Add Tag
+                    {deleteUserBtn ? "Confirm Delete" : "Add Tag"}
                   </Typography>
                   <IconButton onClick={handleClose}>
                     <img src={closeImg} alt="close" style={{ width: "20px" }} />
@@ -101,72 +92,74 @@ function AddTag_DelUser() {
               </DialogTitle>
               <DialogContent>
                 <DialogContentText>
-                  <Grid container>
-                    <Grid item xs={12} sx={{ margin: "6px" }}>
-                      <TextField
-                        required
-                        value={tagDetails.tagname}
-                        onChange={(e) =>
-                          setTagDetails({
-                            ...tagDetails,
-                            tagname: e.target.value,
-                          })
-                        }
-                        label="Tag Name"
-                        variant="outlined"
-                        color="secondary"
-                        fullWidth
-                      />
+                  {deleteUserBtn ? (
+                    <Typography variant="body2" fontWeight="bold">
+                      Are you sure you want to delete this GSTIN?{<br />}This
+                      cannot be undone. Please note that the{<br />}GSTIN credit
+                      will not be reversed{<br />}
+                    </Typography>
+                  ) : (
+                    <Grid container>
+                      <Grid item xs={12} sx={{ margin: "6px" }}>
+                        <TextField
+                          required
+                          value={tagDetails.tagname}
+                          onChange={(e) =>
+                            setTagDetails({
+                              ...tagDetails,
+                              tagname: e.target.value,
+                            })
+                          }
+                          label="Tag Name"
+                          variant="outlined"
+                          color="secondary"
+                          fullWidth
+                        />
+                      </Grid>
+                      <Grid item xs={12} sx={{ margin: "6px" }}>
+                        <TextField
+                          value={tagDetails.tagdescription}
+                          onChange={(e) =>
+                            setTagDetails({
+                              ...tagDetails,
+                              tagdescription: e.target.value,
+                            })
+                          }
+                          label="Tag Description"
+                          variant="outlined"
+                          color="secondary"
+                          fullWidth
+                        />
+                      </Grid>
                     </Grid>
-                    <Grid item xs={12} sx={{ margin: "6px" }}>
-                      <TextField
-                        value={tagDetails.tagdescription}
-                        onChange={(e) =>
-                          setTagDetails({
-                            ...tagDetails,
-                            tagdescription: e.target.value,
-                          })
-                        }
-                        label="Tag Description"
-                        variant="outlined"
-                        color="secondary"
-                        fullWidth
-                      />
-                    </Grid>
-                  </Grid>
+                  )}
                 </DialogContentText>
               </DialogContent>
               <DialogActions>
                 <Box>
-                  <Button
+                  <MuiButton
                     onClick={handleClose}
-                    variant="contained"
-                    sx={{
-                      margin: "5px 10px",
-                      textTransform: "none",
+                    variant="outlined"
+                    btnName="Cancel"
+                    customStyle={{
+                      padding: "5px 10px",
                       color: "#000",
                       backgroundColor: "#fcfcfc",
                       "&:hover": { backgroundColor: "#fff" },
                     }}
-                  >
-                    Cancel
-                  </Button>
-                  <Button
-                    disabled={!tagDetails.tagname}
+                  />
+                  <MuiButton
+                    disabled={deleteUserBtn ? false : !tagDetails.tagname}
+                    btnName="Submit"
                     type="submit"
                     autoFocus
                     onClick={handleSubmit}
                     variant="contained"
-                    sx={{
-                      margin: "5px 10px",
-                      textTransform: "none",
-                      color: "#fff",
-                      backgroundColor: "#5245dc",
-                      "&:hover": { backgroundColor: "#5245dc" },
+                    customStyle={{
+                      padding: "5px 10px",
+                      backgroundColor: deleteUserBtn ? "red" : "#5245dc",
                     }}
-                  >
-                    Submit
-                  </Button>
+                  />
                 </Box>
               </DialogActions>
             </form>
@@ -177,4 +170,4 @@ function AddTag_DelUser() {
   );
 }
 
-export default AddTag_DelUser;
+export default React.memo(AddTag_DelUser);

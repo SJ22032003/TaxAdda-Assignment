@@ -25,3 +25,8 @@ body{
 #text-area:focus{
   border: 3px solid #5245dc;
 }
+
+#root-lgmn{
+  font-weight: 600;
+  color: #000;
+}

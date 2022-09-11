@@ -6,7 +6,7 @@ import TopNavbar from "./layout/navbar/TopNavbar";
 function HOC({ children }) {
   return (
     <Grid container>
-      <Grid item xs={2}>
+      <Grid item xs={2} sx={{ backgroundColor: "#1d2631" }}>
         <SideNavbar />
       </Grid>
       <Grid item xs={10}>

@@ -14,8 +14,8 @@ import {NavLink} from "react-router-dom";
 function SideNavbar() {
   return (
     <AppBar
-      position="static"
-      sx={{ minHeight: "100vh", backgroundColor: "#1d2631" }}
+      position="sticky"
+      sx={{backgroundColor:"transparent", boxShadow:"none"}}
     >
       <Toolbar disableGutters={true}>
         <Stack spacing={2} sx={{ width: "100%" }}>

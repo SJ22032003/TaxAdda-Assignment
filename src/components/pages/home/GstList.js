@@ -1,11 +1,14 @@
 import React from "react";
-import { Grid, Typography, Box, TextareaAutosize, Button } from "@mui/material";
+import { Grid, Typography, Box, TextareaAutosize, Paper } from "@mui/material";
 import Select from "react-select";
-import AddTagsImg from "../../assets/tag.png";
 import { useSelector, useDispatch } from "react-redux";
 import AddTag_DelUser from "../../common/AddTag_DelUser";
 import { ADD_GSTIN_LIST } from "../../../redux/ActionType";
 import errorMessage from "../../common/Notification";
+import MuiButton from "../../common/MuiButton";
+import { useNavigate } from "react-router-dom";
+import AddTagsImage from "../../assets/tag.png";
+import { POPUP_OPEN } from "../../../redux/ActionType";
 
 const customStyles = {
   control: (provided, state) => ({
@@ -29,8 +32,10 @@ const customStyles = {
 };
 
 function GstList() {
+  const history = useNavigate();
   const dispatch = useDispatch();
   const gstin_tags = useSelector((state) => state.TagsReducer.tags);
+  const location = useSelector((state) => state.MainReducer.changeLocation);
 
   const selectOptions = gstin_tags?.map((item) => {
     return { value: item.name, label: item.name, id: item.id };
@@ -42,22 +47,24 @@ function GstList() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const gstinList = gstinListText.split("\n").map((item) => item.trim());
-    if (gstinListText.trim() === "") {
-      errorMessage("Add GSTIN", "Please enter GSTIN list", "warning");
+    if (gstinListText.trim() === "" || !selectedTags?.id) {
+      errorMessage("Incomplete Info", "GSTIN or Tag is missing", "warning");
     } else {
       dispatch({
         type: ADD_GSTIN_LIST,
         payload: {
           gstin: gstinList,
-          tags: selectedTags.id == null ? [] : [selectedTags.id],
+          tags: [selectedTags.id],
         },
       });
     }
   };
 
+
   return (
     <Grid container sx={{ padding: { lg: "0 70px 0 0", md: "0 20px" } }}>
       <Grid
+        component={Paper}
         item
         container
         sx={{
@@ -104,7 +111,17 @@ function GstList() {
               >
                 Select Tags
               </Typography>
-              <AddTag_DelUser />
+              <MuiButton
+                btnName="Add Tag"
+                onClick={() => dispatch({ type: POPUP_OPEN, open: true })}
+                image={AddTagsImage}
+                customStyle={{
+                  margin: "0 20px 10px 0",
+                  padding: "2px 4px",
+                  backgroundColor: "#101825",
+                  "&:hover": { backgroundColor: "#2d3743" },
+                }}
+              />
             </Grid>
             <Select
               isClearable
@@ -141,23 +158,16 @@ function GstList() {
           sx={{ width: "100%", display: "flex", justifyContent: "flex-end" }}
         >
           <Typography variant="h6" component="div">
-            <Button
+            <MuiButton
               onClick={handleSubmit}
               variant="outline"
-              sx={{
-                backgroundColor: "#5245dc",
-                textTransform: "none",
-                color: "#fff",
-                marginRight: "20px",
-                fontWeight: "600",
-                "&:hover": { backgroundColor: "#322a93" },
-              }}
-            >
-              Save Multiple GSTIN
-            </Button>
+              btnName="Save Multiple GSTIN"
+              customStyle={{ padding: "8px 12px" }}
+            />
           </Typography>
         </Grid>
       </Grid>
+      <AddTag_DelUser />
     </Grid>
   );
 }

@@ -1,15 +1,23 @@
 import { call, put } from "redux-saga/effects";
-import { addGstinList, addTagsList, getTagsList } from "../api/apis";
+import {
+  addGstinList,
+  addTagsList,
+  getTagsList,
+  getGstinUser,
+  deleteUser,
+} from "../api/apis";
 import {
   ADD_GSTIN_LIST_SUCCESS,
   ADD_TAGS_LIST_SUCCESS,
+  GET_GSTIN_USER,
+  GET_GSTIN_USER_SUCCESS,
   GET_TAGS_LIST_SUCCESS,
 } from "../ActionType";
 
 // Add GSTIN List
 export function* handleAddGstinList(action) {
+  const response = yield call(addGstinList, action);
   try {
-    const response = yield call(addGstinList, action);
     if (response) {
       yield put({
         type: ADD_GSTIN_LIST_SUCCESS,
@@ -17,7 +25,22 @@ export function* handleAddGstinList(action) {
       });
     }
   } catch (error) {
-    console.log(response , "respsonse");
+    console.log(response, "respsonse");
+  }
+}
+
+// GET GSTIN User
+export function* handleGetGstinUser() {
+  const response = yield call(getGstinUser);
+  try {
+    if (response) {
+      yield put({
+        type: GET_GSTIN_USER_SUCCESS,
+        payload: response.gstin,
+      });
+    }
+  } catch (error) {
+    console.log(response, "response");
   }
 }
 
@@ -38,8 +61,8 @@ export function* handleAddTagsList(action) {
 
 // GET Tags List
 export function* handleGetTagsList() {
+  const response = yield call(getTagsList);
   try {
-    const response = yield call(getTagsList);
     if (response) {
       yield put({
         type: GET_TAGS_LIST_SUCCESS,
@@ -48,5 +71,15 @@ export function* handleGetTagsList() {
     }
   } catch (error) {
     console.log(error);
+  }
+}
+
+//Delete user
+export function* handleDeleteUser(action) {
+  const response = yield call(deleteUser, action);
+  if (response.status == 200) {
+    yield put({
+      type: GET_GSTIN_USER,
+    });
   }
 }

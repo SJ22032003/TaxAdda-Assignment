@@ -14,9 +14,13 @@ export const addGstinList = async (action) => {
     "Content-Type": "application/json",
   };
 
+  const { gstin, tags } = action?.payload;
+
+  console.log(tags, "tags");
+
   let bodyContent = JSON.stringify({
-    gstin: action.payload.gstin,
-    tags: action.payload.tags,
+    gstin: gstin,
+    tags: tags,
     user: "prateek@test.com",
   });
 
@@ -26,10 +30,44 @@ export const addGstinList = async (action) => {
     headers: headersList,
     data: bodyContent,
   };
+  let response;
+  try {
+    response = await axios.request(reqOptions);
+    errorMessage(
+      "GSTIN Import Request",
+      "We have taken your request and will send you an email once all GSTIN is processed",
+      "success"
+    );
+    return response.data;
+  } catch (error) {
+    errorMessage("Error", "Some of your GSTIN Numbers might be invalid", "danger", 5000);
+  }
+};
+
+// GET GSTIN User
+export const getGstinUser = async () => {
+  let headersList = {
+    Accept: "*/*",
+    "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+  };
+
+  let reqOptions = {
+    url: `${url_Gstin}/`,
+    params: {
+      skip: 0,
+      limit: 20,
+      download: true,
+      searchText: "",
+      tags: ["628df7b40fedcce4178cb227"],
+      type: "regular",
+      user: "prateek@test.com",
+    },
+    method: "GET",
+    headers: headersList,
+  };
 
   try {
     let response = await axios.request(reqOptions);
-    errorMessage("GSTIN Import Request", "We have taken your request and will send you an email once all GSTIN is processed", "success");
     return response.data;
   } catch (error) {
     errorMessage("Error", error.message, "danger");
@@ -80,6 +118,34 @@ export const getTagsList = async () => {
   try {
     let response = await axios.request(reqOptions);
     return response.data;
+  } catch (error) {
+    errorMessage("Error", error.message, "danger");
+  }
+};
+
+// Delete User
+export const deleteUser = async (action) => {
+  let headersList = {
+    Accept: "*/*",
+    "User-Agent": "Thunder Client (https://www.thunderclient.com)",
+    "Content-Type": "application/json",
+  };
+
+  let bodyContent = JSON.stringify({
+    gstin: action.payload,
+    user: "prateek@test.com",
+  });
+
+  let reqOptions = {
+    url: "https://test1.taxadda.com/api/gstin/delete",
+    method: "POST",
+    headers: headersList,
+    data: bodyContent,
+  };
+  try {
+    let response = await axios.request(reqOptions);
+    errorMessage("User Removed", "Successfully deleted GSTIN User", "Success");
+    return response;
   } catch (error) {
     errorMessage("Error", error.message, "danger");
   }

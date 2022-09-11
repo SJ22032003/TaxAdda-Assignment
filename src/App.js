@@ -9,7 +9,7 @@ function App() {
     <>
       <ReactNotifications />
       <HOC>
-        <MyRoutes />;
+        <MyRoutes />
       </HOC>
     </>
   );
