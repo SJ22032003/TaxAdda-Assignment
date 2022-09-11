@@ -13,11 +13,12 @@ import {
   Box,
 } from "@mui/material";
 import trashIcon from "../../assets/trash.png";
-import { DELETE_GSTIN_USER } from "../../../redux/ActionType";
+import {
+  POPUP_DELETE_GSTIN,
+} from "../../../redux/ActionType";
 import { useDispatch, useSelector } from "react-redux";
 import { FormatDate } from "../../utils/utils";
-
-// const rows = GstinUser;
+import AddTag_DelUser from "../../common/AddTag_DelUser";
 
 function GstinTable() {
   const rows = useSelector((state) => state.MainReducer.gstin_data);
@@ -26,13 +27,6 @@ function GstinTable() {
 
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  const handleDelete = (gst) => {
-    dispatch({
-      type: DELETE_GSTIN_USER,
-      payload:gst,
-    });
-  };
 
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
@@ -92,7 +86,16 @@ function GstinTable() {
                           {data.cancellationDate ? data.cancellationDate : "-"}
                         </TableCell>
                         <TableCell align="center">
-                          <IconButton onClick={() => handleDelete(data.gstin)}>
+                          <IconButton
+                            onClick={() =>
+                              dispatch({
+                                type: POPUP_DELETE_GSTIN,
+                                open: true,
+                                deleteGstin: true,
+                                gstinNumber: data.gstin,
+                              })
+                            }
+                          >
                             <img
                               src={trashIcon}
                               alt="X"
@@ -124,8 +127,9 @@ function GstinTable() {
           </Box>
         </Grid>
       </Grid>
+      <AddTag_DelUser />
     </>
   );
 }
 
-export default GstinTable;
+export default React.memo(GstinTable);

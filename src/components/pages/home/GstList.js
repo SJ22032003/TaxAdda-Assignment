@@ -7,6 +7,8 @@ import { ADD_GSTIN_LIST } from "../../../redux/ActionType";
 import errorMessage from "../../common/Notification";
 import MuiButton from "../../common/MuiButton";
 import { useNavigate } from "react-router-dom";
+import AddTagsImage from "../../assets/tag.png";
+import { POPUP_OPEN } from "../../../redux/ActionType";
 
 const customStyles = {
   control: (provided, state) => ({
@@ -58,12 +60,6 @@ function GstList() {
     }
   };
 
-  React.useEffect(() => {
-    if (location) {
-      console.log("location", location);
-      history("/gstin");
-    }
-  }, []);
 
   return (
     <Grid container sx={{ padding: { lg: "0 70px 0 0", md: "0 20px" } }}>
@@ -115,7 +111,17 @@ function GstList() {
               >
                 Select Tags
               </Typography>
-              <AddTag_DelUser />
+              <MuiButton
+                btnName="Add Tag"
+                onClick={() => dispatch({ type: POPUP_OPEN, open: true })}
+                image={AddTagsImage}
+                customStyle={{
+                  margin: "0 20px 10px 0",
+                  padding: "2px 4px",
+                  backgroundColor: "#101825",
+                  "&:hover": { backgroundColor: "#2d3743" },
+                }}
+              />
             </Grid>
             <Select
               isClearable
@@ -161,6 +167,7 @@ function GstList() {
           </Typography>
         </Grid>
       </Grid>
+      <AddTag_DelUser />
     </Grid>
   );
 }

@@ -1,5 +1,7 @@
 export const POPUP_OPEN = "POPUP_OPEN";
 export const POPUP_CLOSE = "POPUP_CLOSE";
+export const POPUP_DELETE_GSTIN = "POPUP_DELETE_GSTIN";
+export const POPUP_CLEAN = "POPUP_CLEAN";
 
 // Add Gstin List
 export const ADD_GSTIN_LIST = "ADD_GSTIN_LIST";

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import downloadIcon from "../../assets/downloadIcon.png";
 import GstinTable from "./GstinTable";
 import { useDispatch } from "react-redux";
-import { GET_GSTIN_USER } from "../../../redux/ActionType";
+import { GET_GSTIN_USER, POPUP_CLEAN } from "../../../redux/ActionType";
 
 function GstinList() {
   const history = useNavigate();
@@ -15,6 +15,9 @@ function GstinList() {
     dispatch({
       type: GET_GSTIN_USER,
     });
+    return () => {
+      dispatch({ type: POPUP_CLEAN });
+    };
   }, []);
 
   return (
