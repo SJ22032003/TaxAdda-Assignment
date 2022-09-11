@@ -3,6 +3,8 @@
       <p>
         Tax Adda assingment is a simple web application which is used store GST number and Tag.
       </p>
+      <h5>Live Link</h5>
+      <p>https://tax-adda.netlify.app/add_gstin</p>
       <section>
         <h4>How to use</h4>
         <p>
@@ -14,7 +16,7 @@
         </p>
       </section>
       <section>
-        This GSTIN is not working 04AAACY2068D1
+        This GSTIN is not working <strong>04AAACY2068D1</strong>
       </section>
     </div>
     
