@@ -16,8 +16,6 @@
       <section>
         This GSTIN is not working 04AAACY2068D1
       </section>
-      <section>
-      ![Screenshot from 2022-09-11 15-40-12](https://user-images.githubusercontent.com/85823986/189522141-6e213557-c51b-40d1-a2f1-7615e7f653b4.png)
-      ![Screenshot from 2022-09-11 15-40-12](https://user-images.githubusercontent.com/85823986/189522145-87801be4-c00e-4ada-adf4-6a7f85f1f023.png)
-      </section>
     </div>
+![Screenshot from 2022-09-11 15-40-04](https://user-images.githubusercontent.com/85823986/189522234-9daa4113-efd0-48d2-a240-60be8a2c3963.png)
+![Screenshot from 2022-09-11 15-40-12](https://user-images.githubusercontent.com/85823986/189522236-2adf142a-a6c3-49df-a402-56c1ef662b1c.png)
