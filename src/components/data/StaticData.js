@@ -11,3 +11,12 @@ export const SideNavbarList = [
   { name: "QRMP", image: battery , link:'qrmp'},
   { name: "TAGS", image: tag , link:'tags'},
 ];
+
+export const CsvHeaders = [
+  { label: "LEGAL NAME", key: "lgnm" },
+  { label: "TRADE NAME", key: "name" },
+  { label: "GST NUMBER", key: "gstin" },
+  { label: "GST TYPE", key: "gstRegType" },
+  { label: "REGISTRATION DATE", key: "rgdt" },
+  { label: "CANCELLATION DATE", key: "cancellationDate" },
+];
