@@ -31,3 +31,21 @@
 ![Screenshot from 2022-09-17 12-08-39](https://user-images.githubusercontent.com/85823986/190844152-12300d2d-63cd-44aa-903a-18cd3632e7b7.png)
 
 ![Screenshot from 2022-09-17 12-08-47](https://user-images.githubusercontent.com/85823986/190844153-fb444b42-41e3-48e4-81d7-99b7423a626a.png)
+
+<section>
+GSTIN List which user will be able to import: -
+<ul>
+<li>27AAACV2808C1ZP</li>
+<li> 08ADIPA5715B1Z3</li>
+<li> 08AAACH2702H1Z0</li>
+<li> 07AAACH2702H1Z2</li>
+<li> 20AAACH2702H1ZE</li>
+<li> 29AAACI4798L1ZU</li>
+<li> 36AAACI4798L1ZZ</li>
+<li> 06AABCI6363G1ZN</li>
+<li> 27AAACY2068D1ZG</li>
+<li> 07AAACY2068D1ZI</li>
+<li> 08AAACY2068D1ZG</li>
+<li> 04AAACY2068D1 <strong>Not working</strong></li>
+</ul>
+</section>
